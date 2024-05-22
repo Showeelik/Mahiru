@@ -1,5 +1,6 @@
 import pytest
-from processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, sort_by_date
+
 
 @pytest.fixture
 def input_list():
@@ -22,6 +23,7 @@ def test_filter_by_state_executed(input_list, state):
     assert all(item.get("state", None) == state for item in filtered_list)
     for item in filtered_list:
         assert (item.get("state", None)) == state
+
 
 @pytest.mark.parametrize("order", ["asc", "desc"])
 def test_sort_by_date_ascending(input_list, order):

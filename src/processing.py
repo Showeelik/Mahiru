@@ -27,6 +27,3 @@ def sort_by_date(dict_list: List[Dict[str, Any]], order: Optional[str] = "desc")
         List[Dict[str, Any]]: Новый список словарей, отсортированный по ключу 'date' в указанном порядке.
     """
     return sorted(dict_list, key=lambda x: x.get("date", ""), reverse=True if order == "asc" else False)
-
-
-
