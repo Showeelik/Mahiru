@@ -6,60 +6,45 @@
 
 - **filter_by_state**: Фильтрует список словарей на основе значения ключа 'state'.
 - **sort_by_date**: Сортирует список словарей по ключу 'date' в порядке возрастания или убывания.
+- **mask_card_number**: Маскирует номер карты, показывая только первые 4 цифры, последние 4 цифры и скрывая остальные.
+- **mask_account_number**: Маскирует номер счета, показывая только последние 4 цифры.
+- **mask_account_info**: Маскирует номер карты, показывая только имя карты, первые 10 цифры, последние 4 цифры и скрывая остальные или имя счета и последние 4 цифры.
+- **format_date**: Преобразует дату в формате "2018-07-11T02:26:18.671407" в "11.07.2018".
 
-## Использование
+## Тестирование
 
-Примеры использования и демонстрации функциональности функции **filter_by_state**:
+Этот проект использует pytest для автоматизированного тестирования кода. pytest - это популярный фреймворк для тестирования, который помогает писать простые, читаемые и надежные тесты.
 
-```python
-def filter_by_state(dict_list: List[Dict[str, Any]], state: Optional[str] = "EXECUTED") -> List[Dict[str, Any]]:
-    return [d for d in dict_list if d.get("state") == state]
+### Установка pytest
 
-# Пример использования функции
-input_list = [
-    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-]
+Чтобы запустить тесты, вам потребуется установить pytest. Вы можете сделать это с помощью следующей команды:
 
-output_desc = sort_by_date(input_list)
-output_asc = sort_by_date(input_list, "asc")
-
-print(output_desc)
-print(output_asc)
-
->>> [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
-
->>> [{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+```bash
+poetry add pytest
 ```
 
-Примеры использования и демонстрации функциональности функции **sort_by_date**:
-```python
-def sort_by_date(dict_list: List[Dict[str, Any]], order: Optional[str] = "desc") -> List[Dict[str, Any]]:
-    return sorted(dict_list, key=lambda x: x.get("date", ""), reverse=True if order == "asc" else False)
-
-# Пример использования функции
-input_list = [
-    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-]
-
-output_desc = sort_by_date(input_list)
-output_asc = sort_by_date(input_list, "asc")
-
-print(output_desc)
-print(output_asc)
-
->>> [{'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-{'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}]
-
->>> [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-{'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-{'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
+В pytest для анализа покрытия кода надо поставить библиотеку 
+pytest-cov:
+```bash
+poetry add pytest-cov
 ```
+
+
+### Запуск тестов
+
+Чтобы запустить все тесты в проекте, выполните следующую команду:
+
+```bash
+pytest --cov
+```
+
+### Что тестируется
+
+Тесты в этом проекте покрывают следующие функции и компоненты:
+
+- Функция **`filter_by_state`**
+- Функция **`sort_by_date`**
+- Функция **`mask_card_number`**
+- Функция **`mask_account_number`**
+- Функция **`mask_account_info`**
+- Функция **`format_date`**
