@@ -49,4 +49,3 @@ output_canceled = filter_by_state(input_list, "CANCELED")
 
 print(output_default)
 print(output_canceled)
-
