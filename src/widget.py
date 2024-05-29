@@ -21,14 +21,14 @@ def mask_account_info(account_info: str) -> str:
 
 def format_date(input_string: str) -> str:
     """
-    ### Преобразует дату в формате "2018-07-11T02:26:18.671407" в "11.07.2018".
+    ### Преобразует дату в формате "XXXX-XX-XXTXX:XX:XX.XXXXXX" в "XX.XX.XXXX".
 
     ----------------
     * Аргументы:
-            * input_string (str): Дата в формате "2018-07-11T02:26:18.671407".
+            * input_string (str): Дата в формате "XXXX-XX-XXTXX:XX:XX.XXXXXX".
 
     ----------------
     * Возвращается:
-            * str: Дата в формате "11.07.2018".
+            * str: Дата в формате "XX.XX.XXXX".
     """
     return input_string[8:10] + "." + input_string[5:7] + "." + input_string[0:4]
