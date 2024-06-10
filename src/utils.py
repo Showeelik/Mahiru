@@ -8,4 +8,6 @@ def get_data(data_str: str) -> list:
     Возвращает:
         `list`: список словарей
     """
-    pass
+    with open(data_str, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return data
