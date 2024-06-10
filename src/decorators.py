@@ -1,5 +1,8 @@
 import functools
+import time
 from typing import Optional, Callable, Any
+
+
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -38,6 +41,42 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
                         f.write(log_message + "\n")
                 else:
                     print(log_message)
+
+        return wrapper
+
+    return decorator
+
+def retry() -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    """
+    Декоратор для повторного выполнения функций с указанным количеством попыток.
+
+    Returns:
+        Callable: Декорированная функция с повторным выполнением.
+    
+    Raises:
+        ValueError: Если max_attempts не является целым числом.
+    """
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        @functools.wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            """
+            Обёртка для декорируемой функции, которая выполняет повторное выполнение до тех пор, пока не будет выполнена успешно.
+            
+            Args:
+                *args: Позиционные аргументы функции.
+                **kwargs: Именованные аргументы функции.
+
+            Returns:
+                Any: Результат выполнения декорируемой функции.
+
+            """
+            while True:
+                try:
+                    result = func(*args, **kwargs)
+                    return result
+                except Exception as e:
+                    print(f"{e.__class__.__name__}. Retrying...")
+                    time.sleep(1)
 
         return wrapper
 
