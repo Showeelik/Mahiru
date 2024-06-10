@@ -76,3 +76,27 @@ python tests\test_external_api.py
 - Функция **`get_api_key`**
 - Функция **`get_exchange_rate`**
 - Функция **`convert_transaction_amount`**
+
+Или:
+```bash
+python tests\test_utils.py
+```
+Для проверки функций:
+
+- Функция **`read_transactions`**
+
+### Что тестируется
+
+Тесты в этом проекте покрывают следующие функции и компоненты:
+
+- Функция **`filter_by_state`**
+- Функция **`sort_by_date`**
+- Функция **`mask_card_number`**
+- Функция **`mask_account_number`**
+- Функция **`mask_account_info`**
+- Функция **`format_date`**
+- Функция **`get_api_request`**
+- Функция **`get_api_key`**
+- Функция **`get_exchange_rate`**
+- Функция **`convert_transaction_amount`**
+- Функция **`read_transactions`**
