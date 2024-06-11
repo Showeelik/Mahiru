@@ -1,12 +1,14 @@
+import datetime
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 import requests
-import datetime
 from dotenv import load_dotenv
-from decorators import retry
+
+from src.decorators import retry
 
 load_dotenv()
+
 
 @retry()
 def get_api_request(
@@ -92,9 +94,9 @@ def convert_transaction_amount(transaction: dict) -> Optional[float]:
         return float(amount)
     except KeyError as e:
         raise KeyError(f"Key {e} not found in JSON data.")
-    
 
-def get_weather_data(city: str) -> Optional[dict]:
+
+def get_weather_data(city: str) -> Union[Any, None]:
     """## Функция для получения данных о погоде
     Аргументы:
         `city (str)`: Город
@@ -103,18 +105,14 @@ def get_weather_data(city: str) -> Optional[dict]:
         `dict`: Данные о погоде
     """
     api_url = "https://api.openweathermap.org/data/2.5/weather"
-    params = {
-        "q": city, 
-        "units": "metric", 
-        "lang": "ru", 
-        "appid": get_api_key("API_KEY_OPENWEATHER")
-        }
+    params = {"q": city, "units": "metric", "lang": "ru", "appid": get_api_key("API_KEY_OPENWEATHER")}
 
     response = get_api_request(api_url, params=params)
     if not response:
         return None
     data = response.json()
     return data
+
 
 def output_data(city: str) -> None:
     """## Функция для вывода данных о погоде
@@ -125,7 +123,7 @@ def output_data(city: str) -> None:
     if not data:
         print("Ошибка при получении данных о погоде.")
         return
-    
+
     timezone = datetime.timezone(datetime.timedelta(seconds=data["timezone"]))
 
     print(f"Погода в городе {city}:")
@@ -140,12 +138,3 @@ def output_data(city: str) -> None:
     print(f"Скорость ветра: {data['wind']['speed']} м/с")
     print(f"Видимость: {data['visibility']} м")
     print(f"Давление: {data['main']['pressure']} мм рт.ст.")
-
-
-
-
-
-
-
-
-

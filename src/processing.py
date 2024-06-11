@@ -1,6 +1,7 @@
-from typing import Any, Dict, List, Optional
-from utils import read_data_from_json
 import datetime
+from typing import Any, Dict, List, Optional
+
+from src.utils import read_data_from_json
 
 
 def filter_by_state(dict_list: List[Dict[str, Any]], state: Optional[str] = "EXECUTED") -> List[Dict[str, Any]]:
@@ -41,7 +42,7 @@ def calculate_sales_by_day_of_week(data: List[Dict[str, Any]]) -> Dict[str, floa
     Возвращает:
         Dict[str, float]: Словарь, где ключи - дни недели, а значения - общая сумма продаж за этот день.
     """
-    sales_by_day = {}
+    sales_by_day: dict[Any, Any] = {}
     for sale in data:
         date = datetime.datetime.strptime(sale["date"], "%Y-%m-%d")
         day_of_week = date.strftime("%A")
@@ -64,7 +65,3 @@ def output_price_day_week_data_json() -> None:
     sales_by_day = calculate_sales_by_day_of_week(data["sales"])
     for day, total_price in sales_by_day.items():
         print(f"День недели: {day}, Общая сумма продаж: {total_price}")
-
-
-
-
