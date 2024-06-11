@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from utils import read_transactions
+from utils import read_data_from_json
 
 # Тест на успешное чтение транзакций из файла
 @patch('builtins.open')
@@ -12,7 +12,7 @@ def test_read_transactions(mock_exists, mock_open):
     mock_open.return_value.__enter__.return_value.read.return_value = '[{"id": 207126257, "state": "EXECUTED"}]'
 
     file_path = 'data/operations.json'
-    transactions = read_transactions(file_path)
+    transactions = read_data_from_json(file_path)
 
     assert transactions == [{"id": 207126257, "state": "EXECUTED"}]
     mock_exists.assert_called_once_with(file_path)
@@ -26,7 +26,7 @@ def test_read_transactions_not_a_list(mock_exists, mock_open):
     mock_open.return_value.__enter__.return_value.read.return_value = '{}'
 
     file_path = 'data/operations.json'
-    transactions = read_transactions(file_path)
+    transactions = read_data_from_json(file_path)
 
     assert transactions == []
     mock_exists.assert_called_once_with(file_path)
@@ -40,7 +40,7 @@ def test_read_transactions_empty_file(mock_exists, mock_open):
     mock_open.return_value.__enter__.return_value.read.return_value = ''
 
     file_path = 'data/operations.json'
-    transactions = read_transactions(file_path)
+    transactions = read_data_from_json(file_path)
 
     assert transactions == []
     mock_exists.assert_called_once_with(file_path)
@@ -52,7 +52,7 @@ def test_read_transactions_file_not_found(mock_exists):
     mock_exists.return_value = False
 
     file_path = 'data/operations.json'
-    transactions = read_transactions(file_path)
+    transactions = read_data_from_json(file_path)
 
     assert transactions == []
     mock_exists.assert_called_once_with(file_path)

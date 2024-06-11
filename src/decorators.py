@@ -2,9 +2,6 @@ import functools
 import time
 from typing import Optional, Callable, Any
 
-import unittest
-from unittest.mock import patch, call
-
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """

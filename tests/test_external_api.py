@@ -1,4 +1,3 @@
-import unittest
 from unittest.mock import patch, Mock
 import requests
 from external_api import get_api_request, get_exchange_rate, convert_transaction_amount
