@@ -2,6 +2,8 @@ import functools
 import time
 from typing import Optional, Callable, Any
 
+import unittest
+from unittest.mock import patch, call
 
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -46,38 +48,28 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
 
     return decorator
 
-def retry() -> Callable[[Callable[..., Any]], Callable[..., Any]]:
-    """
-    Декоратор для повторного выполнения функций с указанным количеством попыток.
 
-    Returns:
-        Callable: Декорированная функция с повторным выполнением.
-    
-    Raises:
-        ValueError: Если max_attempts не является целым числом.
+def retry(max_attempts=None):
     """
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+    Декоратор для автоматического повторения функции в случае ошибки соединения.
+
+    :param max_attempts: Максимальное количество попыток (для тестирования).
+    """
+    def decorator_retry(func):
         @functools.wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            """
-            Обёртка для декорируемой функции, которая выполняет повторное выполнение до тех пор, пока не будет выполнена успешно.
-            
-            Args:
-                *args: Позиционные аргументы функции.
-                **kwargs: Именованные аргументы функции.
-
-            Returns:
-                Any: Результат выполнения декорируемой функции.
-
-            """
-            while True:
+        def wrapper_retry(*args, **kwargs):
+            attempts = 0
+            while max_attempts is None or attempts < max_attempts:
                 try:
-                    result = func(*args, **kwargs)
-                    return result
-                except Exception as e:
-                    print(f"{e.__class__.__name__}. Retrying...")
+                    return func(*args, **kwargs)
+                except ConnectionError:
+                    attempts += 1
+                    print(f"Connection error occurred. Retrying {attempts} time(s)...")
                     time.sleep(1)
+            raise ConnectionError(f"Failed to connect after {attempts} attempts")
+        return wrapper_retry
+    return decorator_retry
 
-        return wrapper
 
-    return decorator
+def unstable_function():
+    raise ConnectionError("Failed to connect to the API")
