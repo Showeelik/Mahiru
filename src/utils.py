@@ -1,10 +1,10 @@
 import json
 import os
-from typing import Any
+from typing import Any, Union
 
 
 
-def read_data_from_json(file_path: str) -> Any:
+def read_data_from_json(file_path: str) -> Union[list, dict]:
     """
     ## Возвращает список словарей из JSON-строки
     Аргументы:
