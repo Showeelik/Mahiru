@@ -28,7 +28,7 @@ def test_read_transactions_not_a_list(mock_exists, mock_open):
     file_path = 'data/operations.json'
     transactions = read_data_from_json(file_path)
 
-    assert transactions == []
+    assert transactions == {}
     mock_exists.assert_called_once_with(file_path)
     mock_open.assert_called_once_with(file_path, 'r', encoding='utf-8')
 

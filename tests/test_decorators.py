@@ -1,6 +1,6 @@
 import pytest
 import os
-from decorators import log, retry, unstable_function
+from src.decorators import log, retry, unstable_function
 from unittest.mock import patch, call
 
 
