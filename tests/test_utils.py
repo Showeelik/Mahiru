@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from utils import read_data_from_json
+from src.utils import read_data_from_json
 
 # Тест на успешное чтение транзакций из файла
 @patch('builtins.open')

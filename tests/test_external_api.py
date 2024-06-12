@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
 import requests
-from external_api import get_api_request, get_exchange_rate, convert_transaction_amount
+from src.external_api import get_api_request, get_exchange_rate, convert_transaction_amount
 
 # Тестирование функции get_api_request на различные исключения
 @patch('requests.get')
