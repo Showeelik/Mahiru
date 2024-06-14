@@ -1,10 +1,9 @@
 import json
 import os
-from typing import Any, Union
 
 
 
-def read_data_from_json(file_path: str) -> Union[list, dict]:
+def read_data_from_json(file_path: str) -> list:
     """
     ## Возвращает список словарей из JSON-строки
     Аргументы:
@@ -18,7 +17,7 @@ def read_data_from_json(file_path: str) -> Union[list, dict]:
     with open(file_path, "r", encoding="utf-8") as file:
         try:
             data = json.load(file)
-            if isinstance(data, list) or isinstance(data, dict):
+            if isinstance(data, list):
                 return data
             else:
                 return []
