@@ -1,5 +1,7 @@
 import functools
-from typing import Optional, Callable, Any
+import time
+from typing import Any, Callable, Optional
+
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
@@ -11,6 +13,7 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
     Returns:
         Callable: Декорированная функция с добавленным логированием.
     """
+
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -42,3 +45,6 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
         return wrapper
 
     return decorator
+
+
+

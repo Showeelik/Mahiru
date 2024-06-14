@@ -1,7 +1,7 @@
 from typing import Any, Dict, Generator, List
 
 
-def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Generator[str, None, None]:
+def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> Generator[Dict[str, Any], None, None]:
     """
     ### Функция принимает список словарей с банковскими операциями и возвращает итератор,
     ### который выдает по очереди операции, в которых указана заданная валюта.
