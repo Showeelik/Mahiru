@@ -1,19 +1,20 @@
 import json
-import os
 import logging
+import os
 
 
 def setup_logger(name: str) -> logging.Logger:
     logging.basicConfig(
-        level=logging.INFO, 
-        format='%(asctime)s %(levelname)-7s %(name)s:%(lineno)d -> %(message)s', 
-        datefmt='%Y-%m-%d %H:%M:%S', 
-        filename=f'logs\\{name}.log', 
-        filemode='w', 
-        encoding='utf-8'
-        )
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)-7s %(name)s:%(lineno)d -> %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        filename=f"logs\\{name}.log",
+        filemode="w",
+        encoding="utf-8",
+    )
     logger = logging.getLogger(name)
     return logger
+
 
 logger = setup_logger("utils")
 
@@ -42,6 +43,3 @@ def read_data_from_json(file_path: str) -> list:
         except json.JSONDecodeError:
             logger.error(f"Файл {file_path} содержит некорректные данные")
             return []
-        
-
-

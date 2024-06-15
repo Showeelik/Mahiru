@@ -1,6 +1,7 @@
-from utils import setup_logger
+from src.utils import setup_logger
 
 logger = setup_logger("masks")
+
 
 def mask_card_number(card_number: str) -> str:
     """
@@ -48,15 +49,15 @@ def mask_account_number(account_number: str) -> str:
     if len(account_number) != 10:
         logger.error("Неверный формат номера счета")
         raise ValueError("Неверный формат номера счета")
-    
+
     if not account_number.isdigit():
         logger.error("Номер счета должен содержать только цифры")
         raise ValueError("Номер счета должен содержать только цифры")
-    
+
     if isinstance(account_number, int):
         logger.error("Номер счета должен быть строкой")
         raise ValueError("Номер счета должен быть строкой")
-    
+
     masked_number = f"**{account_number[-4:]}"
     logger.info(f"Замаскированный номер счета: {masked_number}")
 
