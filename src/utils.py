@@ -4,6 +4,13 @@ import os
 
 
 def setup_logger(name: str) -> logging.Logger:
+    """
+    ## Настройка логгера
+    Аргументы:
+        `name (str)`: Имя логгера
+    Возвращает:
+        `logging.Logger`: Объект логгера
+    """
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)-7s %(name)s:%(lineno)d -> %(message)s",
