@@ -5,7 +5,7 @@
 
 ## Обновление:
 
-#### 2024-06-15:
+### 2024-06-15:
 - Были добавлены логи к фунциям: `masks` и `utils` https://github.com/Showeelik/Mahiru/pull/8
 
 
