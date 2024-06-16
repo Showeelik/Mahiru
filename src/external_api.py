@@ -1,19 +1,15 @@
-import datetime
 import os
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import requests
 from dotenv import load_dotenv
 
-from src.decorators import retry
-
 load_dotenv()
 
 
-@retry()
 def get_api_request(
     url: str, params: Optional[Dict[str, Any]] = None, headers: Optional[Dict[str, Any]] = None
-) -> requests.Response | None:
+) -> requests.Response:
     """## Функция для отправки запроса к API
     Аргументы:
         `url (str)`: URL API
@@ -94,5 +90,3 @@ def convert_transaction_amount(transaction: dict) -> Optional[float]:
         return float(amount)
     except KeyError as e:
         raise KeyError(f"Key {e} not found in JSON data.")
-
-

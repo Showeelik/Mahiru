@@ -1,5 +1,4 @@
 import functools
-import time
 from typing import Any, Callable, Optional
 
 
@@ -45,6 +44,3 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
         return wrapper
 
     return decorator
-
-
-
