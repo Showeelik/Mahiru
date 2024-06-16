@@ -11,12 +11,18 @@ def setup_logger(name: str) -> logging.Logger:
     Возвращает:
         `logging.Logger`: Объект логгера
     """
+    file_path = os.path.join("logs", f"{name}.log")
+
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
+
     formatter = logging.Formatter("%(asctime)s %(levelname)-7s %(name)s:%(lineno)d -> %(message)s")
-    logger_file_handler = logging.FileHandler(f"logs\\{name}.log", encoding="utf-8", mode="w")
+
+    logger_file_handler = logging.FileHandler(file_path, encoding="utf-8", mode="w")
     logger_file_handler.setFormatter(formatter)
+
     logger.addHandler(logger_file_handler)
+    
     return logger
 
 
