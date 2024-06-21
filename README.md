@@ -5,6 +5,9 @@
 
 ## Обновление:
 
+### 2024-06-21:
+- Добавлена поддержка расширений файлов `csv` и `xlsx` для функции **`read_data_from_json`** https://github.com/Showeelik/Mahiru/pull/9
+
 ### 2024-06-15:
 - Были добавлены логи к фунциям: `masks` и `utils` https://github.com/Showeelik/Mahiru/pull/8
 
@@ -69,26 +72,6 @@ poetry add pytest-cov
 ```bash
 pytest --cov
 ```
-
-Запустите файл:
-
-```bash
-python tests\test_external_api.py
-```
-Для проверки функций:
-
-- Функция **`get_api_request`**
-- Функция **`get_api_key`**
-- Функция **`get_exchange_rate`**
-- Функция **`convert_transaction_amount`**
-
-Или:
-```bash
-python tests\test_utils.py
-```
-Для проверки функций:
-
-- Функция **`read_data_from_json`**
 
 ### Что тестируется
 
