@@ -9,7 +9,11 @@ readme = "README.md"
 python = "^3.12"
 requests = "^2.31.0"
 python-dotenv = "^1.0.1"
+pandas = "^2.2.2"
+openpyxl = "^3.1.4"
 
+
+pandas-stubs = "^2.2.2.240603"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
