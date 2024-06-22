@@ -34,9 +34,9 @@ logger = setup_logger("utils")
 
 def read_data_from_json(file_path: str) -> list[Any]:
     """
-    ## Возвращает список словарей из JSON-строки
+    ## Возвращает список словарей из JSON/CSV/XLSX
     Аргументы:
-        `data_str (str)`: Путь к JSON-файлу
+        `file_path (str)`: Путь к JSON/CSV/XLSX-файлу
     Возвращает:
         `list`: список словарей
     """
