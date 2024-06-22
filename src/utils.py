@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from typing import Any
+import csv
 
 import pandas as pd
 
@@ -61,7 +62,7 @@ def read_data_from_json(file_path: str) -> list[Any]:
                 return []
 
     elif file_path.endswith(".csv"):
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, delimiter=';')
         logger.info(f"Файл {file_path} успешно загружен")
         return df.to_dict("records")
 
