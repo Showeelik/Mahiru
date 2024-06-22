@@ -73,8 +73,3 @@ def read_data_from_json(file_path: str) -> list[Any]:
     else:
         logger.error(f"Неподдерживаемый формат файла {file_path}")
         return []
-
-
-if __name__ == "__main__":
-    data = read_data_from_json("data\\transactions_excel.xlsx")
-    print(data)
