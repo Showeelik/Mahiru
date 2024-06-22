@@ -76,14 +76,3 @@ def test_convert_transaction_amount_key_error():
         convert_transaction_amount(transaction)
     except KeyError as e:
         assert e.args[0] == "Key 'code' not found in JSON data."
-
-# Запуск тестов
-if __name__ == "__main__":
-    test_get_api_request_connection_error()
-    test_get_api_request_http_error()
-    test_get_api_request_timeout()
-    test_get_api_request_request_exception()
-    test_get_api_request_empty_response()
-    test_get_exchange_rate_key_error()
-    test_convert_transaction_amount_key_error()
-    print("Все тесты пройдены успешно!")
