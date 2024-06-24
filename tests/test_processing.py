@@ -1,5 +1,5 @@
 import pytest
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_status, sort_by_date
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def input_list():
 
 @pytest.mark.parametrize("state", ["EXECUTED", "CANCELED", None])
 def test_filter_by_state_executed(input_list, state):
-    filtered_list = filter_by_state(input_list, state=state)
+    filtered_list = filter_by_status(input_list, state=state)
     assert all(item.get("state", None) == state for item in filtered_list)
     for item in filtered_list:
         assert (item.get("state", None)) == state

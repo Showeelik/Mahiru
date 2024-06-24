@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-from typing import Any
 
 import pandas as pd
 
@@ -32,7 +31,7 @@ def setup_logger(name: str) -> logging.Logger:
 logger = setup_logger("utils")
 
 
-def read_data_from_json(file_path: str) -> list[Any]:
+def read_data_transactions(file_path: str) -> list[dict]:
     """
     ## Возвращает список словарей из JSON/CSV/XLSX
     Аргументы:

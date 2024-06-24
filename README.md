@@ -5,6 +5,9 @@
 
 ## Обновление:
 
+### 2024-06-24:
+- 
+
 ### 2024-06-21:
 - Добавлена поддержка расширений файлов `csv` и `xlsx` для функции **`read_data_from_json`** https://github.com/Showeelik/Mahiru/pull/9
 
