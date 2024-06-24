@@ -1,4 +1,5 @@
 import re
+from collections import Counter
 from typing import Any, Dict, List, Optional
 
 
@@ -81,14 +82,6 @@ def count_transactions_by_category(transactions: List[Dict[str, Any]], categorie
         categories (List[str]): Список категорий операций.
 
     Возвращает:
-        Dict[str, int]: Словарь, где ключи — названия категорий, а значения — количество операций в каждой категории.
+        Dict[str, int]: Словарь, где ключи - категории, а значения - количество операций в каждой категории.
     """
-    category_counts = {}
-    for category in categories:
-        category_counts[category] = 0
-    for transaction in transactions:
-        description = transaction.get("description", "")
-        for category in categories:
-            if category in description:
-                category_counts[category] += 1
-    return category_counts
+    return Counter(t.get("description", "") for t in transactions if t.get("description", "") in categories)
