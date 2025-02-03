@@ -8,13 +8,19 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 requests = "^2.31.0"
+python-dotenv = "^1.0.1"
+pandas = "^2.2.2"
+openpyxl = "^3.1.4"
+pandas-stubs = "^2.2.2.240603"
+
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.0"
-
+pytest-cov = "^5.0.0"
 
 [tool.mypy]
 disallow_untyped_defs = true
@@ -45,7 +51,6 @@ exclude = '''
 [tool.isort]
 # максимальная длина строки
 line_length = 119
-
 
 [tool.poetry.group.lint.dependencies]
 mypy = "^1.10.0"

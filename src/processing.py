@@ -1,52 +1,87 @@
+import re
+from collections import Counter
 from typing import Any, Dict, List, Optional
 
 
-def filter_by_state(dict_list: List[Dict[str, Any]], state: Optional[str] = "EXECUTED") -> List[Dict[str, Any]]:
-    """
-    ## Фильтрует список словарей на основе значения ключа 'state'.
-
-    Аргументы:
-        dict_list (List[Dict[str, Any]]): Список словарей для фильтрации.
-        state (Optional[str]): Значение для фильтрации словарей. По умолчанию установлено на 'EXECUTED'.
-
-    Возвращает:
-        List[Dict[str, Any]]: Новый список словарей, удовлетворяющих условию фильтрации.
-    """
-    return [d for d in dict_list if d.get("state") == state]
-
-
-def sort_by_date(dict_list: List[Dict[str, Any]], order: Optional[str] = "desc") -> List[Dict[str, Any]]:
+def sort_by_date(transactions: List[Dict[str, Any]], order: Optional[str] = "desc") -> List[Dict[str, Any]]:
     """
     ## Сортирует список словарей по ключу 'date' в порядке возрастания или убывания.
 
     Аргументы:
-        dict_list (List[Dict[str, Any]]): Список словарей с ключом 'date' (дата и время в формате ISO) для сортировки.
+        transactions (List[Dict[str, Any]]): Список словарей с ключом 'date' для сортировки.
         order (Optional[str]): Метод сортировки ('desc' по умолчанию; 'asc' для возрастающего, 'desc' для убывающего).
 
     Возвращает:
         List[Dict[str, Any]]: Новый список словарей, отсортированный по ключу 'date' в указанном порядке.
     """
-    return sorted(dict_list, key=lambda x: x.get("date", ""), reverse=True if order == "asc" else False)
+    return sorted(transactions, key=lambda x: x.get("date", ""), reverse=True if order == "asc" else False)
 
 
+def filter_by_status(transactions: List[Dict[str, Any]], state: str) -> List[Dict[str, Any]]:
+    """
+    Фильтрация транзакций по статусу.
 
-input_list = [
-    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-    {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-]
+    Аргументы:
+        transactions (List[Dict[str, Any]]): Список словарей с данными о банковских операциях.
+        status (str): Статус операции.
+
+    Возвращает:
+        List[Dict[str, Any]]: Список словарей, удовлетворяющих условию фильтрации.
+    """
+    return [t for t in transactions if t.get("state", "") == state]
 
 
-output_desc = sort_by_date(input_list)
-output_asc = sort_by_date(input_list, "asc")
+def filter_by_currency(transactions: List[Dict[str, Any]], currency: str) -> List[Dict[str, Any]]:
+    """
+    Фильтрация транзакций по валюте.
 
-print(output_desc)
-print(output_asc)
+    Аргументы:
+        transactions (List[Dict[str, Any]]): Список словарей с данными о банковских операциях.
+        currency (str): Валюта операции.
+        file_extension (str): Расширение файла
 
-output_default = filter_by_state(input_list)
-output_canceled = filter_by_state(input_list, "CANCELED")
+    Возвращает:
+        List[Dict[str, Any]]: Список транзакций, удовлетворяющих условию фильтрации.
+    """
+    transaction = [t for t in transactions if t.get("currency", "") == currency]
 
-print(output_default)
-print(output_canceled)
+    for t in transactions:
+        if t.get("operationAmount", None) is not None:
+            if t["operationAmount"]["currency"]["code"] == currency:
+                transaction.append(t)
+            else:
+                continue
+        else:
+            if t.get("currency_code") == currency:
+                transaction.append(t)
+            else:
+                continue
+    return transaction
 
+
+def filter_by_description(transactions: List[Dict[str, Any]], search_string: str) -> List[Dict[str, Any]]:
+    """
+    Фильтрация транзакций по описанию.
+
+    Аргументы:
+        transactions (List[Dict[str, Any]]): Список словарей с данными о банковских операциях.
+        search_string (str): Строка для поиска в описании операции.
+
+    Возвращает:
+        List[Dict[str, Any]]: Список транзакций, удовлетворяющих условию фильтрации.
+    """
+    return [t for t in transactions if re.search(search_string, t.get("description", ""), flags=re.IGNORECASE)]
+
+
+def count_transactions_by_category(transactions: List[Dict[str, Any]], categories: List[str]) -> Dict[str, int]:
+    """
+    ## Подсчитывает количество операций в каждой категории.
+
+    Аргументы:
+        transactions (List[Dict[str, Any]]): Список словарей с данными о банковских операциях.
+        categories (List[str]): Список категорий операций.
+
+    Возвращает:
+        Dict[str, int]: Словарь, где ключи - категории, а значения - количество операций в каждой категории.
+    """
+    return Counter(t.get("description", "") for t in transactions if t.get("description", "") in categories)
