@@ -16,7 +16,7 @@
 - Были добавлены логи к фунциям: `masks` и `utils` https://github.com/Showeelik/Mahiru/pull/8
 
 
-## Модули:
+## Модули: 
 
 - **`processing.py`**
     - **`filter_by_status`**: *Фильтрация транзакций по статусу.*
